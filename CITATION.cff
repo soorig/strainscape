@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "strainscape: mesh-calibrated strain-to-pseudo-magnetic-field pipeline for graphene on nanopillars"
+version: 0.1.0
+date-released: 2026-09-07
+license: MIT
+repository-code: "https://github.com/soorig/strainscape"
+authors:
+  - family-names: Kang
+    given-names: Musung
+    orcid: "https://orcid.org/0009-0005-7509-4704"
+    affiliation: "Department of Mathematical Sciences, Seoul National University"

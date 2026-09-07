@@ -1,0 +1,14 @@
+{
+  "rounding_m": 5.2619140625e-08,
+  "rounding_nm": 52.619140625,
+  "target_eps": 0.024,
+  "pillar": {
+    "half_side": 2.5e-07,
+    "power": 8.0,
+    "height": 8.5e-08,
+    "tent_width": 4.88e-07,
+    "rotation": 0.0,
+    "harmonics": {}
+  },
+  "seconds": 13.816584799991688
+}

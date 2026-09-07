@@ -1,0 +1,24 @@
+# Design the strain, not the pillar
+
+**A mesh-calibrated inverse-design loop for the pseudo-magnetic landscape of graphene on nanopillar arrays, and its photonic twin on a silicon PIC.**
+Musung Kang, Seoul National University, September 2026. Code and figures: this repository.
+
+## What the three papers say when read together
+
+Kang 2021 (slow carriers), Lu 2023 (SHG from sublattice polarisation) and Kim 2023 (GeSn nanowire cavity) share one design logic: a lithographic geometry sets a strain or mode landscape, and an FDTD or tight-binding model on a grid predicts the observable. In the two graphene papers the pseudo-magnetic field `B_ps` is a *derivative of a derivative* of the pillar topography, so every quoted peak value is a statement about resolution. The demo makes this quantitative:
+
+* A continuum drape model calibrated to the Raman-derived strain of the 500 nm / 85 nm pillars reproduces both reported strain numbers at once (peak atomic strain 2.40 % by construction, Raman-spot strain 1.28 % vs the measured 1.26 %), but the edge rounding that achieves this is 53 nm, and then the peak field is 1.8 T and the tent-averaged field 0.4 T.
+* Peak `|B_ps|` scales like `r^-1.3` with the edge rounding `r`; the ~30 T tight-binding peak of Lu 2023 corresponds to `r ~ 6 nm`, and the ~25 T *average* inferred from pump-probe in Kang 2021 needs sharper edges still. With `r = 0` the peak never converges under mesh refinement (fig 2).
+* Hence the edge profile, not the pillar height or pitch, is the lever that decides whether pseudo-Landau levels exist, and in wet-etched (BOE) SiO2 pillars it is uncontrolled.
+
+## Proposal (three deliverables, 6-9 months, each testable with the group's existing tools)
+
+1. **Edge-controlled, inverse-designed footprints.** Dry-etch the pillars so the edge radius is a set parameter (10-20 nm), and let the optimiser choose the footprint (single e-beam exposure, same height). The demo's first result is a negative one worth knowing before fabricating: with a 10 nm edge the 500 nm square exceeds a 3 % strain cap (6 %), the optimiser meets the cap at an unchanged cell-averaged `|B_ps|` (0.5 T) by rounding the footprint and widening the tent, and no footprint shape at fixed pitch and height raises the average further. The average field is set by edge sharpness times edge length per unit area, so the next design variables are pitch and pillar count per cell, and the loop is written so they slot in. Metrology already exists in the group: the low-temperature SHG map images `|P|`, and `B_ps ∝ div P` (Eq. 3 of Lu 2023), so the SHG microscope becomes a direct read-out of the designed field.
+2. **Uniform-field unit cell on a substrate.** Use the uniformity objective to approach the triaxial pattern of Guinea 2010 without suspending the sheet (unlike the Opt. Lett. 2022 design). Target: pseudo-Landau spacing `E_1 > k_B T` at 4 K, resolvable by pump-probe and by the temperature dependence of SHG. The mathematics of "how non-uniform may `B_ps` be before the ladder blurs" is a resolvent-perturbation question (Kato), which is my thesis toolkit.
+3. **Photonic twin on the Q-SPIN silicon PIC.** A honeycomb coupled-waveguide array with position-designed couplings realises the same `B_ps` landscape for light (`i d/dz psi = H psi`, `H` the coupling graph). Coupling laws are calibrated from a mode solver in the demo (fig 5); an FDTD run replaces one function. Pseudo-Landau flat bands appear as z-invariant confinement of a launched beam. This is a programmable testbed for the strain designs *before* graphene is transferred, it belongs to the lab's PIC-for-quantum programme, and every unitary such an array can or cannot implement is exactly what my continuous-time-quantum-walk results certify.
+
+Same forward model, different observable: `tr(eps)` is the exciton confinement potential of a WSe2 monolayer on the same pillar (`pmf.exciton_shift`), so deliverable 1 also places and tunes the strain-induced single-photon emitters of the group's 2025 Nano Letters paper.
+
+## What I need from the group, and the main risk
+
+An AFM height map of one fabricated pillar (the pipeline takes any `h(x, y)`, the drape model is only a stand-in), and the etch recipe constraints. Main risk: the continuum small-slope membrane neglects adhesion and slip; the cross-check is a tight-binding calculation on one corner with the measured topography, which the demo's `tightbinding.py` already does for a synthetic strain field.

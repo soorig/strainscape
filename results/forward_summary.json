@@ -1,0 +1,13 @@
+{
+  "dx_nm": 2.0,
+  "N": 750,
+  "eps_max_pct": 2.4011959888831065,
+  "eps_raman_max_pct": 1.2848046043044288,
+  "B_max_T": 1.8150395870346663,
+  "B_rms_tent_T": 0.4788110838517961,
+  "B_mean_abs_tent_T": 0.3641817616181968,
+  "coverage_frac": 0.0,
+  "coverage_area_um2": 0.0,
+  "equilibrium_residual": 0.014242435652161515,
+  "rounding_nm": 52.619140625
+}

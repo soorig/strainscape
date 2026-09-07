@@ -1,0 +1,40 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,urlcolor=blue!60!black,linkcolor=black]{hyperref}
+\setlist{nosep,leftmargin=1.2em}
+\pagestyle{empty}
+\newcommand{\Bps}{B_{\mathrm{ps}}}
+\begin{document}
+
+{\large\bfseries Design the strain, not the pillar}\\[2pt]
+{\bfseries A mesh-calibrated inverse-design loop for the pseudo-magnetic landscape of graphene on nanopillar arrays, and its photonic twin on a silicon PIC}\\[2pt]
+{\small Musung Kang, Dept.\ of Mathematical Sciences, Seoul National University, September 2026.
+Code, tests and figures: \url{https://github.com/soorig/strainscape}.}
+
+\vspace{4pt}\noindent{\bfseries What the three papers say when read together.}
+Kang~2021 (slow carriers), Lu~2023 (SHG from sublattice polarisation) and Kim~2023 (GeSn nanowire cavity) share one design logic: a lithographic geometry sets a strain or mode landscape, and a tight-binding or FDTD model on a grid predicts the observable. In the graphene papers the pseudo-magnetic field is a derivative of a derivative of the pillar topography,
+$\Bps=\nabla\times\mathbf A$, $\mathbf A=\tfrac{\hbar}{e}\tfrac{\beta}{2a_0}(\varepsilon_{xx}-\varepsilon_{yy},-2\varepsilon_{xy})$, $\varepsilon_{ij}\simeq\tfrac12\partial_ih\,\partial_jh$,
+so every quoted peak value is a statement about resolution. The demo makes this quantitative:
+\begin{itemize}
+\item A continuum drape model calibrated to the 500\,nm\,/\,85\,nm pillars reproduces both reported strain numbers at once (peak atomic strain 2.40\,\% by construction; strain seen by the 361\,nm Raman spot 1.28\,\% vs the measured 1.26\,\%), but the edge rounding that achieves this is 53\,nm, and then the peak field is 1.8\,T and the tent-averaged field 0.4\,T.
+\item Peak $|\Bps|$ scales as $r^{-1.3}$ with the edge rounding $r$. The $\sim$30\,T tight-binding peak of Lu~2023 corresponds to $r\approx6$\,nm; the $\sim$25\,T \emph{average} inferred from pump--probe in Kang~2021 needs sharper edges still. With $r=0$ the peak never converges under mesh refinement (13, 30, 86\,T at $dx=16,8,4$\,nm).
+\item Hence the edge profile, not height or pitch, decides whether pseudo-Landau levels exist, and in BOE-etched SiO$_2$ pillars it is uncontrolled.
+\end{itemize}
+
+\noindent{\bfseries Proposal: three deliverables, 6--9 months, each testable with the group's existing tools.}
+\begin{enumerate}
+\item \emph{Edge-controlled, inverse-designed footprints.} Dry-etch the pillars so the edge radius is a set parameter (10--20\,nm) and let the optimiser choose the footprint (single e-beam exposure, same height). The demo's first result is a negative one worth knowing before fabricating: with a 10\,nm edge the 500\,nm square exceeds a 3\,\% strain cap (6\,\%); the optimiser meets the cap at an unchanged cell-averaged $|\Bps|$ ($0.5$\,T) by rounding the footprint and widening the tent, and no footprint shape at fixed pitch and height raises the average further. The average field is edge sharpness times edge length per unit area, so the next design variables are pitch and pillar count per cell, and the loop is written so they slot in. Metrology exists in the group: the low-temperature SHG map images $|\mathbf P|$, and $\Bps=-\tfrac{\hbar}{e}\tfrac{2\beta}{3a_0^2}\nabla\!\cdot\!\mathbf P$ (Eq.~3 of Lu~2023, verified to $10^{-15}$ in the code), so the SHG microscope reads out the designed field directly.
+\item \emph{Uniform-field unit cell on a substrate.} Use the uniformity objective to approach the triaxial pattern of Guinea~2010 without suspending the sheet (unlike the 2022 Opt.\ Lett.\ design). Target: pseudo-Landau spacing $E_1>k_BT$ at 4\,K, visible in pump--probe and in the temperature dependence of SHG. ``How non-uniform may $\Bps$ be before the ladder blurs'' is a resolvent-perturbation question (Kato), which is my thesis toolkit.
+\item \emph{Photonic twin on the Q-SPIN silicon PIC.} A honeycomb coupled-waveguide array with position-designed couplings realises the same landscape for light, $i\,\partial_z\psi=H\psi$ with $H$ the coupling graph. The demo calibrates the coupling law from a mode solver (an FDTD run replaces one function) and shows the photonic pseudo-Landau ladder and the $z$-invariant confinement of a launched beam to the magnetic length. This is a programmable testbed for the strain designs before graphene is transferred, it sits inside the lab's PIC-for-quantum programme, and which unitaries such an array can or cannot implement is exactly what my continuous-time quantum-walk results certify.
+\end{enumerate}
+Same forward model, different observable: $\operatorname{tr}\varepsilon$ is the exciton confinement potential of a WSe$_2$ monolayer on the same pillar, so deliverable~1 also places and tunes the strain-induced single-photon emitters of the group's 2025 \emph{Nano Letters} paper.
+
+\vspace{3pt}\noindent{\bfseries What I need, and the main risk.} An AFM height map of one fabricated pillar (the pipeline accepts any $h(x,y)$; the drape model is a stand-in) and the etch constraints. Risk: the small-slope membrane neglects adhesion and slip. Cross-check: tight binding on one corner with the measured topography, which \texttt{tightbinding.py} already does for a synthetic field (Landau levels within 1\,\% of $E_n=v_F\sqrt{2e\hbar B|n|}$, $n=0$ level $>99$\,\% on one sublattice).
+
+\vspace{3pt}\noindent{\small\emph{Prior art acknowledged:} Jones \& Pereira, NJP 16, 093044 (2014) (PDE-constrained topography optimisation for a prescribed $\Bps$); Lorin et al., arXiv:2112.00865 (electron optics). The demo adds a fabricable footprint parametrisation, a calibrated edge rounding, the mesh study, and the photonic twin.}
+\end{document}

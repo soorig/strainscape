@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strainscape"
+version = "0.1.0"
+description = "Strain -> pseudo-magnetic-field pipeline for graphene on nanopillars: mesh calibration, tight-binding validation, inverse design, photonic twin"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Musung Kang", email = "kmusung98@gmail.com"}]
+dependencies = ["numpy>=1.26", "scipy>=1.11", "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["strainscape*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
